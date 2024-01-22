@@ -1,10 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { QrCodePopUpProps } from '@/types';
 
-interface QrCodePopUpProps {
-  show: boolean;
-  handleClose: () => void;
-  imageUrl: string;
-}
+const useQrCodeLogic = () => {
+  const [showQrCode, setShowQrCode] = useState(false);
+  const [qrCodeImageUrl, setQrCodeImageUrl] = useState('');
+  const [timeoutId, setTimeoutId] = useState<number | null>(null);
+
+  const handleButtonClick = () => {
+    // Fetch or set the QR code image URL here
+    const imageUrl = './QrABA.png';
+    setQrCodeImageUrl(imageUrl);
+    setShowQrCode(true);
+  };
+
+  setTimeout(() => {
+    setShowQrCode(false);
+  }, 30000);
+
+  const handleCloseQrCodePopUp = () => {
+    setShowQrCode(false);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (timeoutId !== null) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [timeoutId]);
+
+  return {
+    showQrCode,
+    qrCodeImageUrl,
+    handleButtonClick,
+    handleCloseQrCodePopUp,
+  };
+};
 
 const QrCodePopUp: React.FC<QrCodePopUpProps> = ({ show, handleClose, imageUrl }) => {
   return (
@@ -25,4 +56,4 @@ const QrCodePopUp: React.FC<QrCodePopUpProps> = ({ show, handleClose, imageUrl }
   );
 };
 
-export default QrCodePopUp;
+export { useQrCodeLogic, QrCodePopUp };

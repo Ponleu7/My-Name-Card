@@ -31,3 +31,16 @@ body {
     text-wrap: balance;
   }
 }
+
+
+.primaryColor {
+  color: var(--Primary-Color-500, #10B981);
+}
+
+.backgroundColor {
+  color: var(--Gray-Scale-50, #F8FAFC);
+}
+
+.border-con {
+  color: var(--Gray-Scale-200, #E2E8F0);
+}
